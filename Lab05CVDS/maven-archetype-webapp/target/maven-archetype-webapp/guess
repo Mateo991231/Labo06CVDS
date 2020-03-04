@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3c.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head></h:head>
+<h:body>
+    <h:form id="guess_form" style="margin-bottom:10px; width:500px;">
+
+        <p:outputLabel value="#{guessBean.numeroCorrecto}" style="display:none"/>
+        <p:outputLabel value="numeroIntentos: "/>
+        <p:outputLabel id="numeroIntentos"  value="#{guessBean.numeroIntentos}" />
+        <h3></h3>
+        <p:outputLabel value="status: "/>
+        <p:outputLabel value="#{guessBean.status}"/>
+        <h3></h3>
+        <p:outputLabel value="total: "/>
+        <p:outputLabel value="#{guessBean.total}" />
+        <h3></h3>
+        <p:inputText id= "numeroIntentos" type="int" value="#{guessBean.input}"/>
+        <h3></h3>
+        <p:commandButton id = "enviar" action="#{guessBean.adivinar}" value="Enviar" update="guess_form" />
+        <p:outputLabel  value="   "/>
+        <p:commandButton id = "reinicio" value="Reiniciar" update="guess_form" actionListener="#{guessBean.restart}"/>
+    </h:form>
+</h:body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Start Page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script>
+        function validateID(){
+            var id;
+            id= document.forms["ID"]["id"].value;
+            if(isNaN(x)){
+                alert("ID must be a number");
+                return false;
+            }
+        }
+    </script>
+</head>
+    <body>
+    <form name="ID" action="/pruebas" onsubmit="return validateID()" method="get">
+        Id:<br>
+        <input type="number" name="id" required><br>
+        <input type="submit" value="Submit">
+    </form>
+    <h1>Hello World!</h1>
+</body>
+</html>

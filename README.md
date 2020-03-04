@@ -1,2 +1,2 @@
-# Labo06CVDS
+# Lab06CVDS
 Laboratorio #6  CVDS

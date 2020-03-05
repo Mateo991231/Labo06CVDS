@@ -13,13 +13,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(
-        urlPatterns="/servlet"
+        urlPatterns="/pruebas"
 )
 
 public class newServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int prop =HttpServletResponse.SC_OK;
+        int status =HttpServletResponse.SC_OK;
         Writer responseWriter=null;
         int validId=-1;
         try {
@@ -29,26 +29,27 @@ public class newServlet extends HttpServlet {
             try {
                 validId=Integer.parseInt(id);
             }catch(NumberFormatException e) {
-                prop = HttpServletResponse.SC_BAD_REQUEST;
+                status = HttpServletResponse.SC_BAD_REQUEST;
             }
-            if (prop==200) prop = (validId < 1 || validId > 200) ? HttpServletResponse.SC_NOT_FOUND :HttpServletResponse.SC_OK;
-            prop = (req.getParameter("id") == null)? HttpServletResponse.SC_BAD_REQUEST:prop;
-            resp.setStatus(prop);
+            if (status==200) status = (validId < 1 || validId > 200) ? HttpServletResponse.SC_NOT_FOUND :HttpServletResponse.SC_OK;
+            status = (req.getParameter("id") == null)? HttpServletResponse.SC_BAD_REQUEST:status;
+            resp.setStatus(status);
         }catch(MalformedURLException e) {
-            prop=HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
+            status=HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
         }catch(Exception e) {
-            prop=HttpServletResponse.SC_BAD_REQUEST;
+            status=HttpServletResponse.SC_BAD_REQUEST;
         }
-        if(prop==200) {
-            ArrayList<Todo> todos = new ArrayList();
-            todos.add(Service.getTodo(validId));
-            String htmlTable=Service.todosToHTMLTable(todos);
+        if(status==200) {
+            ArrayList<Todo> todoList = new ArrayList();
+            todoList.add(Service.getTodo(validId));
+            String htmlTable=Service.todosToHTMLTable(todoList);
             responseWriter.write(htmlTable);
         }else {
-            responseWriter.write("Error "+prop);
+            responseWriter.write("Error "+status);
         }
         responseWriter.flush();
     }
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int status =HttpServletResponse.SC_OK;
@@ -81,8 +82,4 @@ public class newServlet extends HttpServlet {
         }
         responseWriter.flush();
     }
-
-
-
-
 }

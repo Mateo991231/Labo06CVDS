@@ -1,70 +1,58 @@
 package edu.eci.cvds.servlet;
 
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import java.util.Random;
 
 @SessionScoped
-@ManagedBean(name = "guess")
-
+@ManagedBean(name = "guessBean")
 public class BackingBean {
-    public int numeroCorrecto;
-    public int numeroIntentos;
-    public int total;
-    public boolean status;
+    private int guessNumber;
+    private int Attempts;
+    private int prize;
+    private boolean state;
+    private int input;
 
-
-    public BackingBean() {
-        restart();
-
+    public BackingBean(){ restart(); }
+    public int getInput() { return input; }
+    public void setEstado(boolean bol){ this.state=bol; }
+    public void setNumeroAdivinar(int number){ this.guessNumber=number; }
+    public void setIntentos(){ this.Attempts++; }
+    public void setPremio(int premio){ this.prize=premio; }
+    public int getNumeroAdivinar() { return guessNumber; }
+    public int getIntentos() { return Attempts; }
+    public int getPremio() { return prize; }
+    public String getState() { return state?"\n"+"Won":"Game in progress"; }
+    public void guess(){
+        Attempts++;
+        if(guessNumber!=input){
+            prize-=10000;
+        }
+        else{
+            state=true;
+        }
+    }
+    public void adivinar(){
+        Attempts++;
+        if(guessNumber!=input){
+            prize-=10000;
+        }
+        else{
+            state=true;
+        }
     }
 
-    public void guess(int num) {
-        numeroIntentos++;
-        if (numeroCorrecto != num) {
-            total -= 10000;
-        } else if (numeroCorrecto == num) {
-            status = true;
-            if(numeroIntentos==1){
-                total+=100000;
-            }        }
+    public void setInput(int input) {
+        this.input = input;
     }
+
     public void restart(){
         Random random= new Random(21);
-        numeroCorrecto=random.nextInt();
-        numeroIntentos=0;
-        status=false;
-        total=0;
-    }
-    public int getNumeroCorrecto() {
-        return numeroCorrecto;
+        guessNumber=random.nextInt();
+        Attempts=0;
+        state=false;
+        prize=100000;
     }
 
-    public int getNumeroIntentos() {
-        return numeroIntentos;
-    }
 
-    public int getTotal() {
-        return total;
-    }
-    public void setStatus(boolean status){
-        this.status=status;
-
-    }
-    public void setNumeroCorrecto(int correcto){
-        this.numeroCorrecto=correcto;
-    }
-
-    public void setNumeroIntentos(){
-        this.numeroIntentos++;
-    }
-
-    public void setTotal(int total){
-        this.total=total;
-    }
-
-    public boolean getEstado() {
-        return status;
-    }
 }

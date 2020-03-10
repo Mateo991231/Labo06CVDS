@@ -1,2 +1,2 @@
-# Lab05CVDS
-Laboratorio 5 CVDS
+# Lab06CVDS
+Laboratorio 6 CVDS
